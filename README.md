@@ -9,12 +9,12 @@ This extension can manage IO files for cpp builds. It was intended to work with 
 - run the configured build and run task
 - clean up workspace
 
-![Build and run](https://gitlab.com/i2002/cpp-build-vscode-extension/blob/master/images/build-and-run.png)
+![Build and run](https://gitlab.com/i2002/cpp-build-vscode-extension/raw/master/images/bulid-and-run.png)
 
 ### Pbinfo problem preview
 - fetch problem info and show it in the right panel
 
-![Pbinfo preview](https://gitlab.com/i2002/cpp-build-vscode-extension/blob/master/images/pbinfo-preview.png)
+![Pbinfo preview](https://gitlab.com/i2002/cpp-build-vscode-extension/raw/master/images/pbinfo-preview.png)
 
 ## Shortcuts
 - **F9** -  build and run
