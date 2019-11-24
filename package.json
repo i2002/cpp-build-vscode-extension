@@ -1,0 +1,89 @@
+{
+	"name": "cpp-build",
+	"displayName": "cpp-build",
+	"description": "Utility to compile C++ files and manage IO files",
+	"repository": "https://www.gitlab.com/i2002/cpp-build-vscode-extension",
+	"publisher": "i2002",
+	"version": "0.0.2",
+	"engines": {
+		"vscode": "^1.40.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:extension.buildAndRun",
+		"onCommand:extension.build",
+		"onCommand:extension.close",
+		"onCommand:extension.pbinfo"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.buildAndRun",
+				"title": "Cpp-Build: Build and Run"
+			},
+			{
+				"command": "extension.run",
+				"title": "Cpp-Build: Run"
+			},
+			{
+				"command": "extension.close",
+				"title": "Cpp-Build: Clean workspace"
+			},
+			{
+				"command": "extension.pbinfo",
+				"title": "Cpp-Build: Pbinfo preview"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "extension.buildAndRun",
+				"key": "F9"
+			},
+			{
+				"command": "extension.run",
+				"key": "F10"
+			},
+			{
+				"command": "extension.close",
+				"key": "ctrl+escape"
+			},
+			{
+				"command": "extension.pbinfo",
+				"key": "alt+P"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "webpack --mode production",
+		"webpack": "webpack --mode development",
+		"webpack-dev": "webpack --mode development --watch",
+		"test-compile": "tsc -p ./",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^5.2.7",
+		"@types/node": "^12.11.7",
+		"@types/vscode": "^1.40.0",
+		"glob": "^7.1.5",
+		"mocha": "^6.2.2",
+		"ts-loader": "^6.2.1",
+		"tslint": "^5.20.0",
+		"typescript": "^3.6.4",
+		"vsce": "^1.69.0",
+		"vscode-test": "^1.2.2",
+		"webpack": "^4.41.2",
+		"webpack-cli": "^3.3.10"
+	},
+	"dependencies": {
+		"@types/jsdom": "^12.2.4",
+		"axios": "^0.19.0",
+		"jsdom": "^15.2.1"
+	}
+}
