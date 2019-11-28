@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
+import * as path from 'path';
 import { resolveCliPathFromVSCodeExecutablePath } from 'vscode-test';
 
 export class FileController {
@@ -120,7 +121,7 @@ export class FileController {
         }
 
         vscode.window.visibleTextEditors.forEach(editor => {
-            let start = editor.document.fileName.lastIndexOf('/');
+            let start = editor.document.fileName.lastIndexOf(path.sep);
             if(editor.document.fileName == this.getIn(name) || editor.document.fileName == this.getOut(name)) {
                 return true;
             }
@@ -130,14 +131,14 @@ export class FileController {
     }
 
     // helper getters
-    private getName(path: string): string {
-        let start = path.lastIndexOf('/') + 1;
-        let len = path.lastIndexOf('.');
-        return path.slice(start, len);
+    private getName(pth: string): string {
+        let start = pth.lastIndexOf(path.sep) + 1;
+        let len = pth.lastIndexOf('.');
+        return pth.slice(start, len);
     }
 
-    private getExtension(path: string): string {
-        return path.slice(path.lastIndexOf('.'));
+    private getExtension(pth: string): string {
+        return pth.slice(pth.lastIndexOf('.'));
     }
 
     private getIn(name: string): string {

@@ -1,6 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import * as path from 'path';
 import { FileController } from './file_controller';
 import { BuildController } from './build_controller';
 import { PbinfoProvider} from './pbinfo_document';
@@ -14,7 +15,7 @@ export function activate(context: vscode.ExtensionContext) {
 	if(!vscode.workspace.workspaceFolders) {
 		throw Error("Need to open a folder first");
 	}
-	const buildPath: string = vscode.workspace.workspaceFolders[0].uri.fsPath + "/build/";
+	const buildPath: string = vscode.workspace.workspaceFolders[0].uri.fsPath + `${path.sep}build${path.sep}`;
 
 	// controllers
 	const file_controller = new FileController(buildPath);
@@ -33,7 +34,7 @@ export function activate(context: vscode.ExtensionContext) {
 			await file_controller.open(name, true);
 			await build_controller.buildAndRun();
 		} catch(e) {
-			vscode.window.showErrorMessage(e);
+			await vscode.window.showErrorMessage(e.toString());
 		}
 	});
 
