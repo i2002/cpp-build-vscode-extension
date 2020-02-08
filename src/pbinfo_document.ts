@@ -22,18 +22,37 @@ export class PbinfoProvider implements vscode.TextDocumentContentProvider {
             switch(element.nodeName)
             {
             case "H1":
-                if(result != "") {
-                    result += `\n`;
-                }
+                result += (result != "") ? '\n' : '';
                 result += `# ${element.textContent}\n`;
                 break;
+
+            case "H2":
+                result += (result != "") ? '\n' : '';
+                result += `## ${element.textContent}\n`;
+                break;
+
+            case "H3":
+                result += (result != "") ? '\n' : '';
+                result += `### ${element.textContent}\n`;
+                break;
+
             case "P":
                 let str = element.innerHTML;
-                result += str.replace(/<code>(.*?)<\/code>/g, "`$1`") + '\n';
+
+                str = str.replace(/\n/g, ""); // remove newlines
+                str = str.replace(/<br>/g, "\n"); // newline
+                str = str.replace(/<code>(.*?)<\/code>/g, "`$1`"); // code
+                str = str.replace(/<strong>(.*?)<\/strong>/g, "**$1**"); // bold
+                str = str.replace(/<span class=".*">(.*?)<\/span>/g, "`$1`"); // span
+                str = str.replace(/<img src="(.*?)" alt="(.*?)">/g, "\n![$2]($1)\n"); // image
+                
+                result += str + '\n';
                 break;
+
             case "PRE":
-                result += `${element.textContent}\n`;
+                result += `~~~\n${element.textContent}~~~\n\n`;
                 break;
+    
             case "UL":
                 for(let j = 0; j < element.children.length; j++) {
                     result += `- ${element.children[j].textContent}\n`;
