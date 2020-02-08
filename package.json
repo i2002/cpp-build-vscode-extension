@@ -57,6 +57,7 @@
 		]
 	},
 	"scripts": {
+		"package": "vsce package --out builds/cpp-build-$npm_package_version.vsix",
 		"vscode:prepublish": "webpack --mode production",
 		"webpack": "webpack --mode development",
 		"webpack-dev": "webpack --mode development --watch",
