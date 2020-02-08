@@ -40,7 +40,7 @@ export class PbinfoProvider implements vscode.TextDocumentContentProvider {
                 let str = element.innerHTML;
 
                 str = str.replace(/\n/g, ""); // remove newlines
-                str = str.replace(/<br>/g, "\n"); // newline
+                str = str.replace(/<br>/g, "   \n"); // newline
                 str = str.replace(/<code>(.*?)<\/code>/g, "`$1`"); // code
                 str = str.replace(/<strong>(.*?)<\/strong>/g, "**$1**"); // bold
                 str = str.replace(/<span class=".*">(.*?)<\/span>/g, "`$1`"); // span
