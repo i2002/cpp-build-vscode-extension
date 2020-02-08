@@ -4,7 +4,7 @@
 	"description": "Utility to compile C++ files and manage IO files",
 	"repository": "https://www.gitlab.com/i2002/cpp-build-vscode-extension",
 	"publisher": "i2002",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"engines": {
 		"vscode": "^1.40.0"
 	},
