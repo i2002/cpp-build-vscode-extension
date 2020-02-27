@@ -1,5 +1,8 @@
 # Change Log
 
+## v0.0.5
+- pbinfo parser improvements (support for b, em, i and initil suport for tables)
+
 ## v0.0.4
 - pbinfo parser improvements (support for h2, h3, strong, span, br, img)
 
