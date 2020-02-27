@@ -7,6 +7,23 @@ export class PbinfoProvider implements vscode.TextDocumentContentProvider {
         return await this.parseData(uri.path);
     }
 
+
+    cleanupString(str: string | null): string {
+        if(str == null)
+            return ""
+
+        str = str.replace(/\n/g, ""); // remove newlines
+        str = str.replace(/<br>/g, "   \n"); // newline
+        str = str.replace(/<code>(.*?)<\/code>/g, "`$1`"); // code
+        str = str.replace(/<strong>(.*?)<\/strong>/g, "**$1**"); // bold
+        str = str.replace(/<b>(.*?)<\/b>/g, "**$1**"); // bold alt
+        str = str.replace(/<em>(.*?)<\/em>/g, "_$1_"); // italic
+        str = str.replace(/<i>(.*?)<\/i>/g, "_$1_"); // italic alt
+        str = str.replace(/<span class=".*">(.*?)<\/span>/g, "`$1`"); // span
+        str = str.replace(/<img src="(.*?)" alt="(.*?)">/g, "\n![$2]($1)\n"); // image
+        return str;
+    }
+
     async parseData(number: string): Promise<string> {
         const res = await axios.get('https://www.pbinfo.ro/ajx-module/ajx-problema-afisare-enunt.php?id=' + number);
         let result = "";
@@ -37,16 +54,7 @@ export class PbinfoProvider implements vscode.TextDocumentContentProvider {
                 break;
 
             case "P":
-                let str = element.innerHTML;
-
-                str = str.replace(/\n/g, ""); // remove newlines
-                str = str.replace(/<br>/g, "   \n"); // newline
-                str = str.replace(/<code>(.*?)<\/code>/g, "`$1`"); // code
-                str = str.replace(/<strong>(.*?)<\/strong>/g, "**$1**"); // bold
-                str = str.replace(/<span class=".*">(.*?)<\/span>/g, "`$1`"); // span
-                str = str.replace(/<img src="(.*?)" alt="(.*?)">/g, "\n![$2]($1)\n"); // image
-                
-                result += str + '\n';
+                result += this.cleanupString(element.innerHTML) + '\n';
                 break;
 
             case "PRE":
