@@ -7,6 +7,25 @@ export class PbinfoProvider implements vscode.TextDocumentContentProvider {
         return await this.parseData(uri.path);
     }
 
+    tableParse(element: Element, data: Array<Array<String>>): void {
+        switch(element.nodeName)
+        {
+        case "TABLE":
+        case "TBODY":
+        case "THEAD":
+        case "TFOOT":
+            for(let child = 0; child < element.children.length; child++) {
+                this.tableParse(element.children[child], data);
+            }
+            break;
+        case "TR":
+            let line = Array()
+            for(let cell = 0; cell < element.children.length; cell++) {
+                line.push(this.cleanupString(element.children[cell].innerHTML));
+            }
+            data.push(line);
+        }
+    }
 
     cleanupString(str: string | null): string {
         if(str == null)
@@ -65,6 +84,15 @@ export class PbinfoProvider implements vscode.TextDocumentContentProvider {
                 for(let j = 0; j < element.children.length; j++) {
                     result += `- ${element.children[j].textContent}\n`;
                 }
+                break;
+
+            case "TABLE":
+                let data = Array<Array<string>>();
+                this.tableParse(element, data);
+                data.forEach(line => {
+                    line.forEach(cell => result += `| ${cell} `)
+                    result += '|\n';
+                })
                 break;
             }
         }
